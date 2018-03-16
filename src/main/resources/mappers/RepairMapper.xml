@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keji.washer.dal.RepairMapper">
+    <insert id="insert">
+        INSERT INTO washer_manage.repair (washer_id, user_id, message, insert_user, update_user)
+        VALUES (#{repair.washerId}, #{repair.userId}, #{repair.message}, #{repair.insertUser},
+                #{repair.updateUser});
+    </insert>
+    <update id="update">
+        update washer_manage.repair
+        <set>
+            <if test="repair.isDeleted != null">
+                is_deleted = #{repair.isDeleted},
+            </if>
+            <if test="repair.isHandle != null">
+                is_handle = #{repair.isHandle},
+            </if>
+        </set>
+        where repair.id = #{repair.id}
+    </update>
+    <resultMap id="repair" type="com.keji.washer.model.bo.RepairBo" autoMapping="true">
+        <association property="washerId" autoMapping="true"
+                     javaType="com.keji.washer.model.po.WasherPo" columnPrefix="w_"/>
+        <association property="userId" autoMapping="true" javaType="com.keji.washer.model.po.UserPo"
+                     columnPrefix="u_"/>
+    </resultMap>
+    <select id="list" resultMap="repair">
+        SELECT
+        repair.id,
+        washer_id,
+        user_id,
+        message,
+        is_handle,
+        repair.insert_user,
+        repair.insert_time,
+        repair.update_user,
+        repair.update_time,
+        repair.is_deleted,
+
+        washer.id w_id,
+        washer.storied_id w_storied_id,
+        status w_status,
+        washer.insert_user w_insert_user,
+        washer.insert_time w_insert_time,
+        washer.update_user w_update_user,
+        washer.update_time w_update_time,
+        washer.is_deleted w_is_deleted,
+
+        user.id u_id,
+        name u_name,
+        phone u_phone,
+        salt u_salt,
+        pwd_hash u_pwd_hash,
+        user.storied_id u_storied_id,
+        balance u_balance,
+        user.insert_user u_insert_user,
+        user.insert_time u_insert_time,
+        user.update_user u_update_user,
+        user.update_time u_update_time,
+        user.is_deleted u_is_deleted
+        FROM washer_manage.repair, washer_manage.washer, washer_manage.user
+        WHERE
+        user_id = user.id
+        AND washer_id = washer.id
+        AND user.is_deleted = 0
+        AND repair.is_deleted = 0
+        AND washer.is_deleted = 0
+        <if test="repair.userId != null and repair.userId != ''">
+            and user_id = #{repair.userId}
+        </if>
+        <if test="repair.isHandle != null">
+            and is_handle = #{repair.isHandle}
+        </if>
+    </select>
+</mapper>

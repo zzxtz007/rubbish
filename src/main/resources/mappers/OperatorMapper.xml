@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keji.washer.dal.OperatorMapper">
+    <select id="get" resultType="com.keji.washer.model.bo.OperatorBo">
+        select
+        id,
+        username,
+        salt,
+        pwd_hash,
+        insert_time,
+        update_time,
+        is_deleted
+        from washer_manage.operator
+        <where>
+            <if test="operator.id != null and operator.id != ''">
+                and id = #{operator.id}
+            </if>
+            <if test="operator.username != null and operator.username != ''">
+                and username = #{operator.username}
+            </if>
+            <if test="1==1">
+                and is_deleted = 0
+            </if>
+        </where>
+        LIMIT 0,1
+    </select>
+</mapper>

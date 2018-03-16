@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keji.washer.dal.StoriedMapper">
+    <select id="list" resultType="com.keji.washer.model.bo.StoriedBo">
+        SELECT
+            id,
+            number,
+            insert_user,
+            insert_time,
+            update_user,
+            update_time,
+            is_deleted
+        FROM washer_manage.storied
+        WHERE is_deleted = 0
+    </select>
+    <select id="get" resultType="com.keji.washer.model.bo.StoriedBo">
+        select
+            id,
+            number,
+            insert_user,
+            insert_time,
+            update_user,
+            update_time,
+            is_deleted
+        from washer_manage.storied
+        <where>
+            is_deleted = 0
+            <if test="number != null">
+                and number = #{storied.number}
+            </if>
+        </where>
+    </select>
+</mapper>

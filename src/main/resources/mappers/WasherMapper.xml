@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keji.washer.dal.WasherMapper">
+    <insert id="insert">
+        INSERT INTO washer_manage.washer (storied_id, status, insert_user, update_user)
+        VALUES (#{washer.storiedId}, #{washer.status}, #{washer.insertUser}, #{washer.updateUser});
+    </insert>
+    <update id="update">
+        update washer_manage.washer
+        <set>
+            <if test="washer.storiedId!=null">
+                storied_id = #{washer.storiedId},
+            </if>
+            <if test="washer.status!=null">
+                status = #{washer.status},
+            </if>
+            <if test="1==1">
+                update_user = #{washer.updateUser},
+                update_time = CURRENT_TIMESTAMP,
+            </if>
+        </set>
+        where id = #{washer.id}
+    </update>
+    <resultMap id="washer" type="com.keji.washer.model.bo.WasherBo" autoMapping="true">
+        <association property="storiedId" autoMapping="true" columnPrefix="s_"
+                     javaType="com.keji.washer.model.po.StoriedPo"/>
+    </resultMap>
+    <select id="list" resultMap="washer">
+        SELECT
+        washer.id,
+        storied_id,
+        status,
+        washer.insert_user,
+        washer.insert_time,
+        washer.update_user,
+        washer.update_time,
+        washer.is_deleted,
+        storied.id s_id,
+        number s_number,
+        storied.insert_user s_insert_user,
+        storied.insert_time insert_time,
+        storied.update_user s_update_user,
+        storied.update_time s_update_time,
+        storied.is_deleted s_is_deleted
+        FROM washer_manage.washer, washer_manage.storied
+        <where>
+            washer.storied_id = storied.id
+            AND washer.is_deleted = 0
+            <if test="washer.status != null">
+                and status = #{washer.status}
+            </if>
+            <if test="washer.storiedId != null">
+                and storied_id = #{washer.storiedId}
+            </if>
+        </where>
+
+        LIMIT #{startIndex}, #{count}
+    </select>
+</mapper>

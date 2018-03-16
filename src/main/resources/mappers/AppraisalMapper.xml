@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keji.washer.dal.AppraisalMapper">
+    <insert id="insert">
+        INSERT INTO washer_manage.appraisal (order_id, user_id, message, insert_user, update_user)
+        VALUES (#{appraisal.orderId}, #{appraisal.userId}, #{appraisal.message},
+                #{appraisal.insertUser}, #{appraisal.updateUser});
+    </insert>
+    <resultMap id="appraisal" type="com.keji.washer.model.bo.AppraisalBo" autoMapping="true">
+        <association property="orderId" autoMapping="true"
+                     javaType="com.keji.washer.model.po.OrderPo" columnPrefix="o_"/>
+        <association property="userId" autoMapping="true" javaType="com.keji.washer.model.po.UserPo"
+                     columnPrefix="u_"/>
+    </resultMap>
+    <sql id="appraisal-select-header">
+        SELECT
+            appraisal.id,
+            order_id,
+            appraisal.user_id,
+            message,
+            appraisal.insert_user,
+            appraisal.insert_time,
+            appraisal.update_user,
+            appraisal.update_time,
+            appraisal.is_deleted,
+
+            od.id            o_id,
+            washer_id        o_washer_id,
+            od.user_id       o_user_id,
+            mode_id          o_mode_id,
+            od.insert_user   o_insert_user,
+            od.insert_time   o_insert_time,
+            od.update_user   o_update_user,
+            od.update_time   o_update_time,
+            od.is_deleted    o_is_deleted,
+
+            user.id          u_id,
+            name             u_name,
+            phone            u_phone,
+            salt             u_salt,
+            pwd_hash         u_pwd_hash,
+            storied_id       u_storied_id,
+            balance          u_balance,
+            user.insert_user u_insert_user,
+            user.insert_time u_insert_time,
+            user.update_user u_update_user,
+            user.update_time u_update_time,
+            user.is_deleted  u_is_deleted
+        FROM washer_manage.appraisal, washer_manage.`order` od, washer_manage.user
+    </sql>
+    <select id="list" resultMap="appraisal">
+        <include refid="appraisal-select-header"/>
+        <where>
+            order_id = od.id
+            and appraisal.user_id = user.id
+            and od.is_deleted =0
+            AND user.is_deleted=0
+            AND appraisal.is_deleted=0
+            and od.washer_id = #{washerId}
+        </where>
+        ORDER BY od.insert_time DESC
+    </select>
+    <select id="get" resultMap="appraisal">
+        <include refid="appraisal-select-header"/>
+        <where>
+            order_id = od.id
+            and appraisal.user_id = user.id
+            and od.is_deleted =0
+            AND user.is_deleted=0
+            AND appraisal.is_deleted=0
+            and order_id = #{appraisal.orderId}
+        </where>
+    </select>
+</mapper>

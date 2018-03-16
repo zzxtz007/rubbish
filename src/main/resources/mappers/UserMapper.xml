@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keji.washer.dal.UserMapper">
+    <insert id="insert">
+        INSERT INTO washer_manage.user (name, phone, salt, pwd_hash, insert_user, update_user)
+        VALUES (#{user.name}, #{user.phone}, #{user.salt}, #{user.pwdHash}, #{user.insertUser},
+                #{user.updateUser});
+    </insert>
+    <update id="update">
+        update washer_manage.user
+        <set>
+            <if test="user.name != null and user.name != ''">
+                name = #{user.name},
+            </if>
+            <if test="user.phone != null and user.phone != ''">
+                phone = #{user.phone},
+            </if>
+            <if test="user.salt != null and user.salt != ''">
+                salt = #{user.salt},
+            </if>
+            <if test="user.pwdHash != null and user.pwdHash != ''">
+                pwd_hash = #{user.pwdHash},
+            </if>
+            <if test="user.isDeleted != null">
+                is_deleted = #{user.isDeleted},
+            </if>
+            <if test="1==1">
+                update_user = #{user.updateUser},
+                update_time = CURRENT_TIMESTAMP,
+            </if>
+        </set>
+        where id = #{user.id}
+    </update>
+    <resultMap id="user" type="com.keji.washer.model.bo.UserBo" autoMapping="true">
+        <association property="storiedId" autoMapping="true"
+                     javaType="com.keji.washer.model.po.StoriedPo" columnPrefix="s_"/>
+    </resultMap>
+    <select id="get" resultMap="user">
+        SELECT
+        user.id,
+        name,
+        phone,
+        salt,
+        pwd_hash,
+        storied_id,
+        balance,
+        user.insert_user,
+        user.insert_time,
+        user.update_user,
+        user.update_time,
+        user.is_deleted,
+        number s_number,
+        storied.id s_id,
+        storied.insert_user s_insert_user,
+        storied.insert_time s_insert_time,
+        storied.update_user s_update_user,
+        storied.update_time s_update_time,
+        storied.is_deleted s_is_deleted
+        FROM washer_manage.user,washer_manage.storied
+        <where>
+            user.storied_id = storied.id
+            <if test="user.id != null and user.id != ''">
+                and user.id = #{user.id}
+            </if>
+            <if test="user.phone != null and user.phone != ''">
+                and user.phone = #{user.phone}
+            </if>
+            <if test="1==1">
+                and user.is_deleted = 0
+                and storied.is_deleted = 0
+            </if>
+        </where>
+        LIMIT 0,1
+    </select>
+</mapper>

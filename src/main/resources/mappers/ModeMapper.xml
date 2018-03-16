@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keji.washer.dal.ModeMapper">
+    <select id="list" resultType="com.keji.washer.model.bo.ModeBo">
+        SELECT
+            id,
+            type,
+            price,
+            washer_time,
+            insert_user,
+            insert_time,
+            update_user,
+            update_time,
+            is_deleted
+        FROM washer_manage.mode
+        WHERE is_deleted = 0
+    </select>
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keji.washer.dal.OrderMapper">
+    <insert id="insert">
+        INSERT INTO washer_manage.`order` (washer_id, user_id, mode_id, status, money, insert_user, update_user)
+        VALUES
+            (#{order.washerId}, #{order.userId}, #{order.modeId}, #{order.status}, #{order.money},
+             #{order.insertUser}, #{order.updateUser});
+    </insert>
+
+    <update id="update">
+        UPDATE washer_manage.`order`
+        SET status      = #{order.status},
+            update_user = #{order.updateTime},
+            update_time = CURRENT_TIMESTAMP
+        WHERE id = #{order.id}
+    </update>
+    <resultMap id="order" type="com.keji.washer.model.bo.OrderBo" autoMapping="true">
+        <association property="washerId" autoMapping="true" columnPrefix="w_"
+                     javaType="com.keji.washer.model.po.WasherPo"/>
+        <association property="userId" autoMapping="true" columnPrefix="u_"
+                     javaType="com.keji.washer.model.po.UserPo"/>
+        <association property="modeId" autoMapping="true" columnPrefix="m_"
+                     javaType="com.keji.washer.model.po.ModePo"/>
+    </resultMap>
+    <sql id="order-select-header">
+        SELECT
+            od.id,
+            washer_id,
+            user_id,
+            mode_id,
+            status,
+            money,
+            od.insert_user,
+            od.insert_time,
+            od.update_user,
+            od.update_time,
+            od.is_deleted,
+
+            user.id            u_id,
+            balance            u_balance,
+            name               u_name,
+            phone              u_phone,
+            salt               u_salt,
+            pwd_hash           u_pwd_hash,
+            user.storied_id    u_storied_id,
+            user.insert_user   u_insert_user,
+            user.insert_time   u_insert_time,
+            user.update_user   u_update_user,
+            user.update_time   u_update_time,
+            user.is_deleted    u_is_deleted,
+
+            washer.id          w_id,
+            washer.storied_id  w_storied_id,
+            status             w_status,
+            washer.insert_user w_insert_user,
+            washer.insert_time w_insert_time,
+            washer.update_user w_update_user,
+            washer.update_time w_update_time,
+            washer.is_deleted  w_is_deleted,
+
+            mode.id            m_id,
+            type               m_type,
+            price              m_price,
+            washer_time        m_washer_time,
+            mode.insert_user   m_insert_user,
+            mode.insert_time   m_insert_time,
+            mode.update_user   m_update_user,
+            mode.update_time   m_update_time,
+            mode.is_deleted    m_is_deleted
+        FROM washer_manage.`order` od, washer_manage.user, washer_manage.washer, washer_manage.mode
+    </sql>
+    <select id="list" resultMap="order">
+        <include refid="order-select-header"/>
+        <where>
+            od.washer_id = washer.id
+            and od.user_id = user.id
+            and od.mode_id = mode.id
+            and od.is_deleted=0
+            and mode.is_deleted=0
+            and user.is_deleted=0
+            and washer.is_deleted=0
+            <if test="order.userId != null and order.userId != ''">
+                and od.user_id = #{order.userId}
+            </if>
+        </where>
+        ORDER BY od.insert_time DESC
+        LIMIT #{startIndex},#{count}
+    </select>
+    <select id="get" resultMap="order">
+        <include refid="order-select-header"/>
+        <where>
+            od.washer_id = washer.id
+            and od.user_id = user.id
+            and od.mode_id = mode.id
+            and od.is_deleted=0
+            and mode.is_deleted=0
+            and user.is_deleted=0
+            and washer.is_deleted=0
+            <if test="order.id != null">
+                and od.id = #{order.id}
+            </if>
+        </where>
+    </select>
+</mapper>
