@@ -33,6 +33,7 @@ public interface OrderService {
 
 	/**
 	 * 获取单条订单
+	 *
 	 * @param id 订单 id
 	 * @return 响应值+订单信息
 	 * @throws Throwable 发生异常时抛出
@@ -40,9 +41,13 @@ public interface OrderService {
 	Response get(Integer id) throws Throwable;
 
 	/**
+	 * 获取用户的订单
 	 *
-	 * @return
-	 * @throws Throwable
+	 * @param userId  用户 id
+	 * @param pageNum 查询页数
+	 * @param count   查询个数
+	 * @return 响应值+订单信息
+	 * @throws Throwable 发生异常时抛出
 	 */
-	Response list() throws Throwable;
+	Response list(String userId, Integer pageNum, Integer count) throws Throwable;
 }
