@@ -85,7 +85,7 @@ public class test {
 	}
 
 	Response listOrder(OrderPo orderPo) {
-		List<OrderBo> num = orderMapper.list(orderPo);
+		List<OrderBo> num = orderMapper.list(orderPo,1,1);
 		return new Response(0).add("info", num);
 	}
 

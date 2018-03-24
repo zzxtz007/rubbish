@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.keji</groupId>
-    <artifactId>washer</artifactId>
+    <artifactId>rubbish</artifactId>
     <version>0.1</version>
     <packaging>war</packaging>
     <build>
@@ -14,13 +14,12 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <target>1.8</target>
-                    <source>1.8</source>
+                    <target>1.7</target>
+                    <source>1.7</source>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-    <commons-lang3.version>3.7</commons-lang3.version>
     <dependencies>
         <!--工具-->
         <dependency>
