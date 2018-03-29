@@ -4,14 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.keji.washer.dal.WasherMapper">
     <insert id="insert">
-        INSERT INTO washer_manage.washer (storied_id, status, insert_user, update_user)
-        VALUES (#{washer.storiedId}, #{washer.status}, #{washer.insertUser}, #{washer.updateUser});
+        INSERT INTO washer_manage.washer (storied_id, name, status, insert_user, update_user)
+        VALUES (#{washer.storiedId}, #{washer.name}, #{washer.status},
+                #{washer.insertUser}, #{washer.updateUser});
     </insert>
     <update id="update">
         update washer_manage.washer
         <set>
             <if test="washer.storiedId!=null">
                 storied_id = #{washer.storiedId},
+            </if>
+            <if test="washer.name != null and washer.name != ''">
+                name = #{washer.name},
             </if>
             <if test="washer.status!=null">
                 status = #{washer.status},
@@ -23,7 +27,8 @@
         </set>
         where id = #{washer.id}
     </update>
-    <resultMap id="washer" type="com.keji.washer.model.bo.WasherBo" autoMapping="true">
+    <resultMap id="washer" type="com.keji.washer.model.bo.WasherBo"
+               autoMapping="true">
         <association property="storiedId" autoMapping="true" columnPrefix="s_"
                      javaType="com.keji.washer.model.po.StoriedPo"/>
     </resultMap>
@@ -31,6 +36,7 @@
         SELECT
         washer.id,
         storied_id,
+        name,
         status,
         washer.insert_user,
         washer.insert_time,

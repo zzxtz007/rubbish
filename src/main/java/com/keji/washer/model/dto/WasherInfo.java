@@ -10,6 +10,7 @@ import com.keji.washer.model.bo.WasherBo;
  */
 public class WasherInfo {
 	private Integer id;
+	private String name;
 	private StoriedInfo storied;
 	private Integer status;
 
@@ -17,6 +18,7 @@ public class WasherInfo {
 	public String toString() {
 		return "WasherInfo{" +
 				"id=" + id +
+				", name='" + name + '\'' +
 				", storied=" + storied +
 				", status=" + status +
 				'}';
@@ -29,6 +31,15 @@ public class WasherInfo {
 		this.id = washerBo.getId();
 		this.storied = storied;
 		this.status = washerBo.getStatus();
+		this.name = washerBo.getName();
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Integer getId() {

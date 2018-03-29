@@ -11,6 +11,7 @@ import java.sql.Date;
  */
 public class WasherBo {
 	private Integer id;
+	private String name;
 	private StoriedPo storiedId;
 	private Integer status;
 	private String insertUser;
@@ -23,6 +24,7 @@ public class WasherBo {
 	public String toString() {
 		return "WasherBo{" +
 				"id=" + id +
+				", name='" + name + '\'' +
 				", storiedId=" + storiedId +
 				", status=" + status +
 				", insertUser='" + insertUser + '\'' +
@@ -31,6 +33,14 @@ public class WasherBo {
 				", updateTime=" + updateTime +
 				", isDeleted=" + isDeleted +
 				'}';
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Integer getId() {

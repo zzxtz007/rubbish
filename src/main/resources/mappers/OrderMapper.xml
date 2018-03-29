@@ -6,7 +6,8 @@
     <insert id="insert">
         INSERT INTO washer_manage.`order` (washer_id, user_id, mode_id, status, money, insert_user, update_user)
         VALUES
-            (#{order.washerId}, #{order.userId}, #{order.modeId}, #{order.status}, #{order.money},
+            (#{order.washerId}, #{order.userId}, #{order.modeId},
+             #{order.status}, #{order.money},
              #{order.insertUser}, #{order.updateUser});
     </insert>
 
@@ -17,7 +18,8 @@
             update_time = CURRENT_TIMESTAMP
         WHERE id = #{order.id}
     </update>
-    <resultMap id="order" type="com.keji.washer.model.bo.OrderBo" autoMapping="true">
+    <resultMap id="order" type="com.keji.washer.model.bo.OrderBo"
+               autoMapping="true">
         <association property="washerId" autoMapping="true" columnPrefix="w_"
                      javaType="com.keji.washer.model.po.WasherPo"/>
         <association property="userId" autoMapping="true" columnPrefix="u_"
@@ -54,6 +56,7 @@
 
             washer.id          w_id,
             washer.storied_id  w_storied_id,
+            name               w_name,
             status             w_status,
             washer.insert_user w_insert_user,
             washer.insert_time w_insert_time,
@@ -70,7 +73,8 @@
             mode.update_user   m_update_user,
             mode.update_time   m_update_time,
             mode.is_deleted    m_is_deleted
-        FROM washer_manage.`order` od, washer_manage.user, washer_manage.washer, washer_manage.mode
+        FROM washer_manage.`order` od, washer_manage.user, washer_manage.washer,
+            washer_manage.mode
     </sql>
     <select id="list" resultMap="order">
         <include refid="order-select-header"/>

@@ -12,6 +12,11 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 模式 service 实现
+ *
+ * @author Ice_Dog
+ */
 public class ModeServiceImpl implements ModeService {
 	private static final Logger LOGGER = Logger.getLogger(ModeServiceImpl.class);
 

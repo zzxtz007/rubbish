@@ -5,7 +5,8 @@
 <mapper namespace="com.keji.washer.dal.RepairMapper">
     <insert id="insert">
         INSERT INTO washer_manage.repair (washer_id, user_id, message, insert_user, update_user)
-        VALUES (#{repair.washerId}, #{repair.userId}, #{repair.message}, #{repair.insertUser},
+        VALUES (#{repair.washerId}, #{repair.userId}, #{repair.message},
+                #{repair.insertUser},
                 #{repair.updateUser});
     </insert>
     <update id="update">
@@ -20,10 +21,13 @@
         </set>
         where repair.id = #{repair.id}
     </update>
-    <resultMap id="repair" type="com.keji.washer.model.bo.RepairBo" autoMapping="true">
+    <resultMap id="repair" type="com.keji.washer.model.bo.RepairBo"
+               autoMapping="true">
         <association property="washerId" autoMapping="true"
-                     javaType="com.keji.washer.model.po.WasherPo" columnPrefix="w_"/>
-        <association property="userId" autoMapping="true" javaType="com.keji.washer.model.po.UserPo"
+                     javaType="com.keji.washer.model.po.WasherPo"
+                     columnPrefix="w_"/>
+        <association property="userId" autoMapping="true"
+                     javaType="com.keji.washer.model.po.UserPo"
                      columnPrefix="u_"/>
     </resultMap>
     <select id="list" resultMap="repair">
@@ -41,6 +45,7 @@
 
         washer.id w_id,
         washer.storied_id w_storied_id,
+        name w_name,
         status w_status,
         washer.insert_user w_insert_user,
         washer.insert_time w_insert_time,

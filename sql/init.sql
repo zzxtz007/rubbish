@@ -55,6 +55,8 @@ CREATE TABLE mode (
 CREATE TABLE washer (
   id          INT PRIMARY KEY        AUTO_INCREMENT
   COMMENT '自增 ID',
+  name varchar(12)        NOT NULL
+  COMMENT '洗衣机名',
   storied_id  INT         NOT NULL
   COMMENT '所属楼号',
   status      INT         NOT NULL
@@ -184,8 +186,8 @@ CREATE TABLE `order` (
   status      INT            NOT NULL
   COMMENT '订单状态标记：可以判断是否为预约
   0=已付款
-  1=运行中
-  2=故障
+  1=未付款
+  2=已取消
   ',
   money       DECIMAL(10, 2) NOT NULL
   COMMENT '订单价格',
