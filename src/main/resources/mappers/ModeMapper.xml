@@ -17,4 +17,18 @@
         FROM washer_manage.mode
         WHERE is_deleted = 0
     </select>
+    <select id="get" resultType="com.keji.washer.model.bo.ModeBo">
+        select
+            id,
+            type,
+            price,
+            washer_time,
+            insert_user,
+            insert_time,
+            update_user,
+            update_time,
+            is_deleted
+        from washer_manage.mode
+        where id = #{mode.id}
+    </select>
 </mapper>

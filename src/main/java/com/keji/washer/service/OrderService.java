@@ -1,6 +1,7 @@
 package com.keji.washer.service;
 
 import com.keji.washer.common.utils.Response;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 订单 service

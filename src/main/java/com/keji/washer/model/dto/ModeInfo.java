@@ -1,5 +1,7 @@
 package com.keji.washer.model.dto;
 
+import java.math.BigDecimal;
+
 /**
  * 模式 dto
  *
@@ -8,13 +10,13 @@ package com.keji.washer.model.dto;
 public class ModeInfo {
 	private Integer id;
 	private String type;
-	private Integer price;
+	private BigDecimal price;
 	private Integer washerTime;
 
 	public ModeInfo() {
 	}
 
-	public ModeInfo(Integer id, String type, Integer price, Integer washerTime) {
+	public ModeInfo(Integer id, String type, BigDecimal price, Integer washerTime) {
 		this.id = id;
 		this.type = type;
 		this.price = price;
@@ -47,11 +49,11 @@ public class ModeInfo {
 		this.type = type;
 	}
 
-	public Integer getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Integer price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

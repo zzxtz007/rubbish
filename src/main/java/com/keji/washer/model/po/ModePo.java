@@ -1,5 +1,6 @@
 package com.keji.washer.model.po;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.sql.Date;
 public class ModePo {
 	private Integer id;
 	private String type;
-	private Integer price;
+	private BigDecimal price;
 	private Integer washerTime;
 	private String insertUser;
 	private Date insertTime;
@@ -49,11 +50,11 @@ public class ModePo {
 		this.type = type;
 	}
 
-	public Integer getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Integer price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
