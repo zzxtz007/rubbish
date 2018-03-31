@@ -49,5 +49,5 @@ public interface OrderService {
 	 * @return 响应值+订单信息
 	 * @throws Throwable 发生异常时抛出
 	 */
-	Response listByUserId(String userId, Integer pageNum, Integer count) throws Throwable;
+	Response list(String userId, Integer pageNum, Integer count) throws Throwable;
 }

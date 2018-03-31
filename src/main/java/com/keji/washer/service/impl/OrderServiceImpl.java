@@ -142,9 +142,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Response listByUserId(String userId, Integer pageNum, Integer count) throws Throwable {
+	public Response list(String userId, Integer pageNum, Integer count) throws Throwable {
 		//判断传入的参数是否为空？若为空 返回 3
-		if (userId == null || pageNum == null || count == null) {
+		if (pageNum == null || count == null) {
 			return new Response(3);
 		}
 		OrderPo orderPo = new OrderPo();
