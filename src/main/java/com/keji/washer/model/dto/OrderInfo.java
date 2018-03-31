@@ -1,6 +1,7 @@
 package com.keji.washer.model.dto;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 
 /**
  * 订单 dto
@@ -11,7 +12,8 @@ public class OrderInfo {
 	private Integer id;
 	private Integer status;
 	private BigDecimal price;
-	private StoriedInfo storiedInfo;
+	private String washerName;
+	private Date createTime;
 
 	@Override
 	public String toString() {
@@ -19,7 +21,8 @@ public class OrderInfo {
 				"id=" + id +
 				", status=" + status +
 				", price=" + price +
-				", storiedInfo=" + storiedInfo +
+				", washerName='" + washerName + '\'' +
+				", createTime=" + createTime +
 				'}';
 	}
 
@@ -47,11 +50,19 @@ public class OrderInfo {
 		this.price = price;
 	}
 
-	public StoriedInfo getStoriedInfo() {
-		return storiedInfo;
+	public String getWasherName() {
+		return washerName;
 	}
 
-	public void setStoriedInfo(StoriedInfo storiedInfo) {
-		this.storiedInfo = storiedInfo;
+	public void setWasherName(String washerName) {
+		this.washerName = washerName;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 }

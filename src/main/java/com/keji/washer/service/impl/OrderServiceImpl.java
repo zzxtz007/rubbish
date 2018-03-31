@@ -6,14 +6,18 @@ import com.keji.washer.dal.ModeMapper;
 import com.keji.washer.dal.OrderMapper;
 import com.keji.washer.dal.WasherMapper;
 import com.keji.washer.model.bo.ModeBo;
+import com.keji.washer.model.bo.OrderBo;
 import com.keji.washer.model.bo.WasherBo;
+import com.keji.washer.model.dto.OrderInfo;
 import com.keji.washer.model.po.ModePo;
 import com.keji.washer.model.po.OrderPo;
 import com.keji.washer.model.po.WasherPo;
 import com.keji.washer.service.OrderService;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +25,7 @@ import java.util.List;
  *
  * @author Ice_Dog
  */
+@Service
 public class OrderServiceImpl implements OrderService {
 
 	@Resource
@@ -76,18 +81,85 @@ public class OrderServiceImpl implements OrderService {
 		return new Response(0);
 	}
 
+	@Transactional(rollbackFor = {IllegalAccessException.class})
 	@Override
-	public Response update(Integer id, Integer status) throws Throwable {
-		return null;
+	public Response update(Integer id, Integer status, String uid) throws Throwable {
+		//判断传入的参数是否为空？若为空 返回 3
+		if (id == null || status == null || uid == null) {
+			return new Response(3);
+		}
+		OrderPo orderPo = new OrderPo();
+		orderPo.setId(id);
+		orderPo.setStatus(status);
+		orderPo.setUpdateUser(uid);
+
+		OrderBo orderBo = orderMapper.get(orderPo);
+		WasherPo washerPo = new WasherPo();
+		washerPo.setId(orderBo.getWasherId().getId());
+		//根据修改的 status 进行相应的修改洗衣机状态
+		switch (status) {
+			//已支付 需要改变洗衣机状态设置为正在洗衣
+			case 0:
+				washerPo.setStatus(2);
+				if (washerMapper.update(washerPo) != 1) {
+					throw new IllegalAccessException("更新失败");
+				}
+				break;
+			case 1:
+				break;
+			case 2:
+				washerPo.setStatus(0);
+				if (washerMapper.update(washerPo) != 1) {
+					throw new IllegalAccessException("更新失败");
+				}
+				break;
+			//胡乱输入
+			default:
+				return new Response(3);
+		}
+		if (orderMapper.update(orderPo) != 1) {
+			throw new IllegalAccessException("更新订单数据异常");
+		}
+		return new Response(0);
 	}
 
 	@Override
 	public Response get(Integer id) throws Throwable {
-		return null;
+		//判断传入的参数是否为空？若为空 返回 3
+		if (id == null) {
+			return new Response(3);
+		}
+		OrderPo orderPo = new OrderPo();
+		orderPo.setId(id);
+		OrderBo orderBo = orderMapper.get(orderPo);
+		OrderInfo orderInfo = new OrderInfo();
+		orderInfo.setId(orderBo.getId());
+		orderInfo.setPrice(orderBo.getMoney());
+		orderInfo.setStatus(orderBo.getStatus());
+		orderInfo.setWasherName(orderBo.getWasherId().getName());
+		orderInfo.setCreateTime(orderBo.getInsertTime());
+		return new Response(0).add("info", orderInfo);
 	}
 
 	@Override
-	public Response list(String userId, Integer pageNum, Integer count) throws Throwable {
-		return null;
+	public Response listByUserId(String userId, Integer pageNum, Integer count) throws Throwable {
+		//判断传入的参数是否为空？若为空 返回 3
+		if (userId == null || pageNum == null || count == null) {
+			return new Response(3);
+		}
+		OrderPo orderPo = new OrderPo();
+		orderPo.setUserId(userId);
+		List<OrderBo> orderBos = orderMapper.list(orderPo, pageNum * count, count);
+		List<OrderInfo> orderInfos = new ArrayList<>();
+		for (OrderBo orderBo : orderBos) {
+			OrderInfo orderInfo = new OrderInfo();
+			orderInfo.setId(orderBo.getId());
+			orderInfo.setPrice(orderBo.getMoney());
+			orderInfo.setStatus(orderBo.getStatus());
+			orderInfo.setWasherName(orderBo.getWasherId().getName());
+			orderInfo.setCreateTime(orderBo.getInsertTime());
+			orderInfos.add(orderInfo);
+		}
+		return new Response(0).add("info", orderInfos);
 	}
 }

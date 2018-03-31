@@ -7,6 +7,7 @@ import com.keji.washer.model.bo.ModeBo;
 import com.keji.washer.model.dto.ModeInfo;
 import com.keji.washer.service.ModeService;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
  *
  * @author Ice_Dog
  */
+@Service
 public class ModeServiceImpl implements ModeService {
 	private static final Logger LOGGER = Logger.getLogger(ModeServiceImpl.class);
 

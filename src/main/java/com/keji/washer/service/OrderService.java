@@ -1,7 +1,6 @@
 package com.keji.washer.service;
 
 import com.keji.washer.common.utils.Response;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 订单 service
@@ -30,7 +29,7 @@ public interface OrderService {
 	 * @return 响应值
 	 * @throws Throwable 发生异常时抛出
 	 */
-	Response update(Integer id, Integer status) throws Throwable;
+	Response update(Integer id, Integer status, String uid) throws Throwable;
 
 	/**
 	 * 获取单条订单
@@ -50,5 +49,5 @@ public interface OrderService {
 	 * @return 响应值+订单信息
 	 * @throws Throwable 发生异常时抛出
 	 */
-	Response list(String userId, Integer pageNum, Integer count) throws Throwable;
+	Response listByUserId(String userId, Integer pageNum, Integer count) throws Throwable;
 }

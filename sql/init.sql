@@ -175,7 +175,7 @@ DELIMITER ;
 
 
 CREATE TABLE `order` (
-  id          INT PRIMARY KEY            AUTO_INCREMENT
+  id          INT(15) PRIMARY KEY            AUTO_INCREMENT
   COMMENT '自增 ID',
   washer_id   INT            NOT NULL
   COMMENT '洗衣机编号',

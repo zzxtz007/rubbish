@@ -53,7 +53,6 @@
         <!-- 配置监控统计拦截的filters -->
         <!--<property name="filters" value="stat" />-->
     </bean>
-
     <!-- 配置mybatis的sqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
@@ -61,6 +60,15 @@
         <!-- 自动扫描mappers.xml文件 -->
         <property name="mapperLocations" value="classpath:/mappers/*.xml"/>
     </bean>
+
+    <!--spring线程池-->
+    <!--<bean id ="threadPoolTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">-->
+        <!--<property name="corePoolSize" value="5"/>-->
+        <!--<property name="maxPoolSize" value="50"/>-->
+        <!--<property name="queueCapacity" value="200"/>-->
+        <!--<property name="waitForTasksToCompleteOnShutdown" value="true"/>-->
+    <!--</bean>-->
+    <bean class="com.keji.washer.common.utils.CheckOrder"/>
 
     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
