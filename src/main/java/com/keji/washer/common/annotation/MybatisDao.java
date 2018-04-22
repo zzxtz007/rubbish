@@ -8,6 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * 标识MyBatis的DAO,方便{@link org.mybatis.spring.mapper.MapperScannerConfigurer}的扫描。
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Component;
 @Target(ElementType.TYPE)
 @Documented
 @Component
+@Repository
 public @interface MybatisDao {
 	String value() default "";
 }

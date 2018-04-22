@@ -40,4 +40,12 @@ public interface WasherMapper {
 	 */
 	List<WasherBo> list(@Param("washer") WasherPo washerPo, @Param("startIndex") Integer startIndex,
 			@Param("count") Integer count);
+	
+	/**
+	 * 根据 id 查询单个洗衣机
+	 *
+	 * @param washerPo   washerPo washer 模型
+	 * @return washer bo 结果
+	 */
+	WasherBo get(@Param("washer") WasherPo washer);
 }

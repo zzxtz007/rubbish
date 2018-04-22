@@ -86,7 +86,7 @@ public class testTest {
 //		System.out.println(t.getAppraisal(appraisal));
 //		System.out.println(t.insertRepair(repair));
 //		System.out.println(t.updateRepair(repair));
-		System.out.println(t.listRepair(repair));
+//		System.out.println(t.listRepair(repair));
 	}
 
 	/**

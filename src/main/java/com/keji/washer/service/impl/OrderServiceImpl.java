@@ -63,6 +63,7 @@ public class OrderServiceImpl implements OrderService {
 		}
 		//创建订单 设置订单状态为 未付款
 		OrderPo orderPo = new OrderPo();
+		orderPo.setWasherId(washerId);
 		orderPo.setStatus(1);
 		orderPo.setModeId(modeId);
 		orderPo.setMoney(modeBo.getPrice());
@@ -73,6 +74,7 @@ public class OrderServiceImpl implements OrderService {
 			throw new IllegalAccessException("插入错误！");
 		}
 		//修改洗衣机
+		washerPo.setId(washerId);
 		washerPo.setStatus(1);
 		washerPo.setUpdateUser(uid);
 		if (washerMapper.update(washerPo) != 1) {

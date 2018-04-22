@@ -54,6 +54,9 @@
         <where>
             washer.storied_id = storied.id
             AND washer.is_deleted = 0
+            <if test="washer.id != null">
+        		and washer.id = #{washer.id}
+       		</if>
             <if test="washer.status != null">
                 and status = #{washer.status}
             </if>
@@ -63,5 +66,31 @@
         </where>
 
         LIMIT #{startIndex}, #{count}
+    </select>
+    <select id="get" resultMap="washer"> 
+    	SELECT
+        washer.id,
+        storied_id,
+        name,
+        status,
+        washer.insert_user,
+        washer.insert_time,
+        washer.update_user,
+        washer.update_time,
+        washer.is_deleted,
+        storied.id s_id,
+        number s_number,
+        storied.insert_user s_insert_user,
+        storied.insert_time insert_time,
+        storied.update_user s_update_user,
+        storied.update_time s_update_time,
+        storied.is_deleted s_is_deleted
+        FROM washer_manage.washer, washer_manage.storied
+        <where>
+      	   	washer.storied_id =storied.id
+        	<if test="washer.id != null">
+        		and washer.id = #{washer.id}
+       		</if>
+        </where>
     </select>
 </mapper>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		#box{
+			margin: auto;
+			width: 512px;
+			height: 512px;
+			background-image: url(img/6.png);
+			background-repeat: no-repeat;
+			position: relative;
+		}
+		#l{
+			position: absolute;
+			top: 50px;
+			left: 230px;
+			font-size: 25px;
+			font-weight: bold;
+			color: white;
+		}
+		.d1{
+			position:absolute;
+			left: 120px;
+			top: 160px;
+			}
+		.d2{
+			position:absolute;
+			left: 160px;
+			top: 195px;
+			}
+		.p1{
+			font-family: "微软雅黑";
+			font-size: 17px;
+			color: darkblue;
+			}
+			#uid{
+				margin-left: 3px;
+				width: 132px;
+				height: 18px;
+			}	
+			#passwprd{
+				margin-left: 5px;
+				width: 132px;
+				height: 18px;
+			}
+			#login{
+				position: absolute;
+				position:absolute;
+				left: 210px;
+				top: 260px;
+			}
+			button{
+				width: 120PX;
+				height: 30PX;
+				font-size: 18px;
+				background-color: #01c0f6;
+				border: 1px solid skyblue;
+				color:white;
+				font-weight: bold;
+				border-radius: 10px 10px;
+			}
+			#reg{
+				position: absolute;
+				position:absolute;
+				left: 228px;
+				top: 295px;
+				font-size: 10px;
+				color: darkblue;
+			}
+	</style>
+	<body>
+		<div id="box">
+			<div class="d1"><p class="p1">电话号码:<span>
+				<input type="text" id="phone" placeholder="请输入电话号码"/>
+			</span></p></div>
+			<div class="d2"><p class="p1">密码:<span><input type="password" id="password" placeholder="请输入密码"/></span></p></div>
+			<div id="login">
+				<button onclick="test2()">登录</button>
+			</div>
+			<div id="reg">还没注册？<a href="reg.html" style="font-size: 14px;">注册</a></div>
+		</div>
+	</body>
+	<script src="js/jquery-2.1.1.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+    /*登录*/
+    $("#username").blur(function () {
+        var name = /^[A-Za-z0-9]+$/;
+        var username = $("#username").val();
+        if (!name.exec(username)) {
+            $("#font").css("color", "red");
+            $("#font").text("用户名格式不正确")
+        }
+    });
+    $("#username").focus(function () {
+        $("#font").text("");
+    });
+
+    function test2() {
+        var phone = $("#phone").val();
+        var password = $("#password").val();
+        if ("" != phone && "" != password && null != phone && null != password) {
+            $.ajax({
+                url: "/rubbish/api/session",
+                type: "POST",
+                data: {
+                    phone: phone,
+                    password: password,
+                    role:"user"
+                }
+            }).done(function (response) {
+            	  console.log(response);
+                if (response.status == 0) {
+                    location.href = "main.html";
+                } else {
+                    alert("登录失败!账号或密码错误!");
+                    $("#password").val("");
+                }
+            });
+        } else {
+            alert("账户名密码或密码不能为空!");
+        }
+    }
+    </script>
+</html>

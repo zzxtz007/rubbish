@@ -33,12 +33,13 @@ public class UserController {
 	 * @param name     用户名
 	 * @param password 密码
 	 * @param phone    手机号
+	 * @param storied 用户所属楼层
 	 * @return 响应值
 	 * @throws Throwable 发生异常时抛出
 	 */
 	@RequestMapping(method = {RequestMethod.POST})
-	public String registered(String name, String phone, String password) throws Throwable {
-		return GSON.toJson(userService.registered(name, phone, password));
+	public String registered(String name, String phone,Integer storied, String password) throws Throwable {
+		return GSON.toJson(userService.registered(name, phone, password,storied));
 	}
 
 	/**
@@ -54,7 +55,7 @@ public class UserController {
 	@NeedLogin
 	@GetUserInfo
 	public String recharge(@PathVariable String id, BigDecimal money, String uid) throws Throwable {
-		return GSON.toJson(userService.update(id, null, null, money, uid));
+		return GSON.toJson(userService.update(id, null, null, null,null,null,money, uid));
 	}
 
 	/**
@@ -62,6 +63,9 @@ public class UserController {
 	 *
 	 * @param id      用户 id
 	 * @param name    用户名称
+	 * @param oldPassword 	用户的旧密码
+	 * @param password     用户设置的新密码
+	 * @param phone        用户的手机号
 	 * @param storied 用户所属楼层
 	 * @param uid     当前登陆用户 id
 	 * @return 响应值
@@ -70,9 +74,9 @@ public class UserController {
 	@RequestMapping(method = {RequestMethod.PUT}, value = "/{id}/modify")
 	@NeedLogin
 	@GetUserInfo
-	public String modify(@PathVariable String id, String name, Integer storied, String uid) throws
+	public String modify(@PathVariable String id, String name,String oldPassword,String password,String phone, Integer storied, String uid) throws
 			Throwable {
-		return GSON.toJson(userService.update(id, name, storied, null, uid));
+		return GSON.toJson(userService.update(id, name, storied,phone,password,oldPassword,null, uid));
 	}
 
 	/**

@@ -19,7 +19,7 @@ public interface UserService {
 	 * @return 响应值
 	 * @throws Throwable 发生异常时抛出
 	 */
-	Response registered(String name, String phone, String password) throws Throwable;
+	Response registered(String name, String phone, String password,Integer storied) throws Throwable;
 
 	/**
 	 * 修改用户信息
@@ -32,7 +32,8 @@ public interface UserService {
 	 * @return 响应值
 	 * @throws Throwable 发生异常时抛出
 	 */
-	Response update(String id, String name, Integer storied, BigDecimal money, String uid) throws
+	Response update(String id, String name, Integer storied,String phone,String password,String oldPwd, BigDecimal money,
+			String uid) throws
 			Throwable;
 
 	/**

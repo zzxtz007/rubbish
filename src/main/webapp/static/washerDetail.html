@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.*{
+			padding: 0;
+			margin: 0;
+		}
+		#box{
+			margin: auto;
+			width: 1000px;
+		}	
+		#header{
+			width: 1000px;
+			height: 100px;
+			background-color: #01c0f6;
+			position: relative;
+		}
+		#logo{
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			left:1px;
+			border-radius: 50%;
+			background-image: url(img/7.png);
+		}
+		#title{
+			position: absolute;
+			color: white;
+			font-weight: bold;
+			font-size: 28px;
+			line-height: 100px;
+			left: 135px;
+		}
+		#nav{
+			width: 250px;
+			height: 700px;
+			float: left;
+		}
+		#content{
+			margin-top: 3px;
+			float: left;
+			width: 743px;
+			height: 700px;
+			margin-left: 3px;
+			border: 2px  solid #01c0f6;
+			
+		}
+		.btn{
+			width: 250px;
+			height: 50px;
+			background-color:#01c0f6 ;
+			margin-top: 3px;
+			color: white;
+			font-size: 20px;
+			line-height: 50px;
+		}
+		.k{
+			margin-top: 3px;
+			width: 250px;
+			height: 440px;
+			background-color: #01c0f6 ;
+		}
+		a{
+			text-decoration: none;
+			color: white;
+			margin-left: 78px;
+			width: 250px;
+			height: 50px;
+		}
+		.btn:hover{
+			background-color: #87CEEB;
+		}
+		.row{
+			width: 740px;
+			height: 250px;
+			margin-left: 20px;
+			box-shadow: 2px 5px 5px  lightskyblue ;
+		}
+		.row:hover{
+			background-color: aliceblue;
+		}
+		.name{
+			font-size: 20px;
+			color: #01c0f6 ;
+			margin-left: 20px;
+		}
+		.num{
+			font-size: 16px;
+			height: 27px;
+			background-image: url(img/10.jpg);
+			background-repeat: no-repeat;
+			margin-left: 20px;
+		}
+		.num span{
+			line-height: 27px;
+			margin-left: 40px;
+			}
+		.pinjia{
+			margin-left: 20px;
+			font-size: 13px;
+			margin-left: 20px;
+			color: black;
+		}
+		.yuyue{
+			width: 80px;
+			height: 30px;
+			background-color: #01C0F6;
+			border: 1px solid #01C0F6;
+			border-radius: 20px 20px;
+			color: white;
+			margin-left: 450px;
+		}
+		.h1{
+			width:700px;
+			height: 200px;
+			position: relative;
+		}
+		.Modal1{
+			margin-top: 5px;
+			height: 85px;
+			margin-left: 30px;
+			background-image: url(img/20.png);
+			background-repeat: no-repeat;
+			position: relative;
+			border-bottom: 1px solid #01C0F6;
+		}.Modal2{
+			margin-top: 5px;
+			height: 85px;
+			margin-left: 30px;
+			background-image: url(img/21.png);
+			background-repeat: no-repeat;
+			position: relative;
+			border-bottom: 1px solid #01C0F6;
+		}
+		.Modal3{
+			margin-top: 5px;
+			height: 85px;
+			margin-left: 30px;
+			background-image: url(img/22.png);
+			background-repeat: no-repeat;
+			position: relative;
+			border-bottom: 1px solid #01C0F6;
+		}
+		.Modal4{
+			margin-top: 5px;
+			height: 85px;
+			margin-left: 30px;
+			background-image: url(img/23.png);
+			background-repeat: no-repeat;
+			position: relative;
+			border-bottom: 1px solid #01C0F6;
+		}
+		.modeal{
+			margin-left: 15px;
+			position: absolute;
+			left: 350px;
+		}
+		.MP{
+			position: absolute;
+			top:30px;
+			left: 100px;
+			font-size: 17px;
+		}
+		.MP span{
+			margin-left: 50px;
+		}
+		.xd{
+			background-color: #01c0f6;
+			border: 1px solid skyblue;
+			color:white;
+			border-radius: 20px 20px;
+			margin-top: 10px;
+			width: 100px;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			float: left;
+			margin-left: 150px;
+		}
+		.bx{
+			background-color: red;
+			border: 1px solid skyblue;
+			color:white;
+			border-radius: 20px 20px;
+			margin-top: 10px;
+			width: 100px;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			float: left;
+			margin-left: 70px;
+		}
+		.Modal1:hover{
+			background-color: aliceblue;
+		}
+		.Modal2:hover{
+			background-color: aliceblue;
+		}
+		.Modal3:hover{
+			background-color: aliceblue;
+		}
+		.Modal4:hover{
+			background-color: aliceblue;
+		}
+		.black_overlay{
+			display: none;
+			position: absolute;
+			top: 0%;
+			left: 0%;
+			width: 100%;
+			height: 100%;
+			background-color: white;
+			z-index:1001;
+			-moz-opacity: 0.8;
+			opacity:.80;
+			filter: alpha(opacity=80);
+			}
+		.white_content {
+			display: none;
+			position: absolute;
+			top: 40%;
+			left: 33%;
+			width: 40%;
+			height: 50%;
+			border: 16px solid lightblue;
+			background-color: white;
+			z-index:1002;
+			overflow: auto;
+		}
+		.pay{
+			width: 100px;
+			height: 30px;
+			color: white;
+			background-color: red;
+			border: 1px solid red;
+			border-radius: 20px 20px;
+			margin-left: 30px;
+			margin-top: 10px;
+		}
+		.pp{
+			margin-left: 60px;
+			font-size: 17px;
+			margin-top: 5px;
+		}
+		.p3{
+			margin-left: 140px;
+			font-size: 17px;
+			margin-top: 20px;
+		}
+		.tit1{
+			font-size: 19px;
+			color: #01C0F6;
+			font-weight: bold;
+			margin-left: 210px;
+		}
+		.yy{
+			margin-left: 120px;
+		}
+		.pwd{
+			width: 100px;
+			height: 30px;
+			color: white;
+			background-color: #01C0F6;
+			border: 1px solid #01C0F6;
+			border-radius: 20px 20px;
+		}
+		.f{
+			margin-left: 80px;
+		}
+	</style>
+	<body>
+		<div id="box">
+			<!--弹出层时背景层DIV-->
+			<div id="fade" class="black_overlay">
+			</div>
+			<div id="MyDiv" class="white_content">
+				<div style="text-align: right; cursor: default; height: 40px;" id="move">
+				<span style="font-size: 16px;" onclick="CloseDiv('MyDiv','fade')"><img src="img/17.png"/></span>
+			</div>
+				<form>
+					<p class="tit1">报修</p>
+					<p class="pp">报修原因: <p>
+						<textarea class="yy" rows="3" cols="35"></textarea>
+					<p class="p3"><input type="button" value="确认" onclick="baoxiu()" class="pwd" />
+					<input type="reset" value="取消" class="pwd"/></p>
+					
+				</form>
+				</div>
+				<div id="MyDiv1" class="white_content">
+				<div style="text-align: right; cursor: default; height: 40px;" id="move">
+				<span style="font-size: 16px;" onclick="CloseDiv('MyDiv1','fade')"><img src="img/17.png"/></span>
+				</div>
+				<form>
+					<p class="tit1">充值</p>
+					<p class="pp">请输入充值金额: <input type="text" id="money"/></p>
+					<p class="p3"><input type="button" value="确认" onclick="pay()" class="pwd" />
+					<input type="reset" value="取消" class="pwd"/></p>
+				</form>
+				</div>
+			<div id="header">
+				<span id="logo"></span>
+				<span id="title">校园自助洗衣管理系统</span>
+			</div>
+			<div id="nav">
+				<div class="btn"><a href="main.html" style="margin-left: 94px;">首页</a></div>
+				<div class="btn"><a href="order.html">我的订单</a></div>
+				<div class="btn" ><span onclick="ShowDiv('MyDiv1','fade')" class="f">我要充值</span></div>
+				<div class="btn"><a href="appraisal.html">我的评价</a></div>
+				<div class="btn"><a href="personal.html">个人中心</a></div>
+				<div class="k"></div>
+			</div>
+			<div id="content">
+				<div class="h1">
+				
+				</div>
+					<div class="Modal1">
+						<p class="MP">标准+杀菌<span>32分钟</span><span style="color: red;">￥4.00</span><span><input type="radio" name="modeal" class="modeal" value="1"/></span></p>
+					</div>
+					<div class="Modal2">
+						<p class="MP">大物+杀菌<span>32分钟</span><span style="color: red;">￥5.00</span><span><input type="radio" name="modeal" class="modeal" value="2"/></span></p>
+					</div>
+					<div class="Modal3">
+						<p class="MP">快速<span>32分钟</span><span style="color: red;">￥3.00</span><span><input type="radio" name="modeal" class="modeal" value="3"/></span></p>
+					</div>
+					<div class="Modal4">
+						<p class="MP">单脱<span>32分钟</span><span style="color: red;">￥2.00</span><span><input type="radio" name="modeal" class="modeal" value="4"/></span></p>
+					</div>
+					<div class="qr">
+						<p class="xd" onclick="xiadan()">确认下单</p>
+					<button onclick="ShowDiv('MyDiv','fade')" class="pay">报修</button>
+					</div>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-2.1.1.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	var uid;
+	var washerId;
+	var ID;
+	var storiedId;
+		//弹出隐藏层
+	function ShowDiv(show_div,bg_div){
+		document.getElementById(show_div).style.display='block';
+		document.getElementById(bg_div).style.display='block' ;
+		var bgdiv = document.getElementById(bg_div);
+		bgdiv.style.width = document.body.scrollWidth;
+		$("#"+bg_div).height($(document).height());
+	};
+	//关闭弹出层
+	function CloseDiv(show_div,bg_div){
+		document.getElementById(show_div).style.display='none';
+		document.getElementById(bg_div).style.display='none';
+	};
+	$(function () {
+		checkSession()
+		ID=getParam();
+		washerId=ID.substring(0,1);
+		storiedId=ID.substring(1,2);
+		console.log(washerId);
+		console.log(storiedId);
+        /**
+         * 获取主washer传过来的洗衣机id
+         */
+        function getParam() {
+            var urlInfo = window.location.href; //获取当前页面的url
+            var intLen = urlInfo.length; //获取url的长度
+            var offset = urlInfo.indexOf("?"); //设置参数字符串开始的位置
+            var strKeyValue = urlInfo.substr(offset, intLen); //取出参数字符串 这里会获得类似“id=1”这样的字符串
+            var arrParam = strKeyValue.split("="); //对获得的参数字符串按照“=”进行分割
+            var strParamValue = arrParam[1]; //得到参数值
+            // alert("您要传递的参数值是" + strParamValue);
+            return strParamValue;
+        }
+        showWasher();
+    });
+	function showWasher(){
+		$.ajax({
+			url:"/rubbish/api/washer/"+washerId+"/appraisal",
+			type:"get"
+		}).done(function (response) {
+	      	  console.log(response);
+	          if (response.status == 0) {
+	        	console.log(response.info);
+	        	var h1=$(".h1");
+	        	var h2=$("<div class='h2'><p class='name'>"+response.washerInfo.name+"</p><p class='num'><span>空闲</span></p></div>");
+	        	h1.append(h2);
+	        	var ary=response.info;
+ 	        	for(var i=0;i<ary.length;i++){
+ 	        		var temp=ary[i];
+ 	        		var pinjia=$("<p class='pinjia'>"+temp.message+"</p>");
+ 	        		h2.append(pinjia);
+ 	        	}
+	        	
+	          } else {
+	             alert("出现未知错误");
+	          }
+	      });
+	}
+	/**
+	*
+	*点击下单
+	*/
+	function xiadan(){
+		var modeId=$('input:radio:checked').val();
+		console.log(modeId);
+		console.log(uid);
+		console.log(washerId);
+		$.ajax({
+			url:"/rubbish/api/order",
+			type:"post",
+			data:{
+				userId:uid,
+				washerId:washerId,
+				modeId:modeId,
+				uid:uid
+			}
+		}).done(function (response) {
+	      	  console.log(response);
+	          if (response.status == 0) {
+	        	 location.href="washer.html?id="+storiedId;
+	          } else {
+	             alert("出现未知错误");
+	          }
+	      });
+	}
+	/**
+	*
+	*报修
+	*/
+	function baoxiu(){
+		var yy=$(".yy").val();
+		$.ajax({
+			url:"/rubbish/api/repair",
+			type:"post",
+			data:{
+				userId:uid,
+				washerId:washerId,
+				message:yy,
+				uid:uid
+			}
+		}).done(function (response) {
+	      	  console.log(response);
+	          if (response.status == 0) {
+	        	 alert("报修成功");
+	          } else {
+	             alert("出现未知错误");
+	          }
+	      });
+	}
+	/**
+	*
+	*检测登录
+	*/
+	function checkSession(){
+		$.ajax({
+			 url: "/rubbish/api/session",
+             type: "GET",
+		}).done(function (response) {
+      	  console.log(response);
+          if (response.status == 0) {
+        	 uid=response.uid;
+             console.log(uid);
+          } else {
+              alert("未登陆，请登录");
+             location.href="login.html";
+          }
+      });
+	}
+	</script>
+</html>

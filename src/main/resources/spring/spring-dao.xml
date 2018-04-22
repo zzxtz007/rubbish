@@ -13,7 +13,6 @@
         http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
-
     <!-- 加载配置属性文件 -->
     <context:property-placeholder ignore-unresolvable="true" location="classpath:washer.properties" />
 
